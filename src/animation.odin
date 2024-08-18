@@ -6,19 +6,19 @@ import "core:log"
 Animation :: struct {
     texture: Texture,
     frames: []i32,
-    speed: i32,
     cur_index, cur_frame: i32,
     total_frames: i32,
-    counter: f32,
+    frame_length, frame_timer: f32,
 }
 
-animation_init :: proc(texture: Texture, frames: []i32, speed: i32, total_frames: i32) -> Animation {
+animation_init :: proc(texture: Texture, frames: []i32, frame_length: f32, total_frames: i32) -> Animation {
     a := Animation{
         texture = texture,
         cur_index = -1,
         total_frames = total_frames,
+        frame_timer = frame_length
     }
-    animation_switch(&a, frames, speed)
+    animation_switch(&a, frames, frame_length)
     return a
 }
 
@@ -28,13 +28,20 @@ animation_deinit :: proc(a: Animation) {
 }
 
 animation_update :: proc(a: ^Animation) {
-    if a.speed <= 0 {
+    if len(a.frames) == 0 {
+        log.error("Animation given 0 frames")
+        return
+    }
+    
+    if a.frame_length == 0 {
         a.cur_frame = a.frames[0]
         return
     }
 
-    a.counter += 1
-    if a.counter >= f32(rl.GetFPS()) / f32(a.speed) {
+    a.frame_timer -= rl.GetFrameTime()
+    if a.frame_timer <= 0 {
+        a.frame_timer = a.frame_length
+
         a.cur_index += 1
         if a.cur_index >= i32(len(a.frames)) {
             a.cur_index = 0
@@ -44,10 +51,10 @@ animation_update :: proc(a: ^Animation) {
 }
 
 animation_draw :: proc(a: Animation, pos: Vec2) {
-    texture_draw_rect(a.texture, animation_rect(a), pos)
+    texture_draw_rect(a.texture, animation_rect(a), pos, a.total_frames)
 }
 
-animation_switch :: proc(a: ^Animation, frames: []i32, speed: i32) {
+animation_switch :: proc(a: ^Animation, frames: []i32, frame_length: f32) {
     if a.frames != nil {
         delete(a.frames)
     }
@@ -56,9 +63,9 @@ animation_switch :: proc(a: ^Animation, frames: []i32, speed: i32) {
         a.frames[i] = frames[i]
     }
 
-    a.counter = 0
-    a.speed = speed
-    a.cur_index = -1
+    a.frame_length = frame_length
+    a.frame_timer = a.frame_length
+    a.cur_index = 0
 }
 
 animation_rect :: proc(a: Animation) -> Rect {

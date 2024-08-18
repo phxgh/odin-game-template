@@ -1,15 +1,16 @@
 package game
 
 import rl "vendor:raylib"
+import "core:log"
 
 main :: proc() {
-    rl.SetConfigFlags({.VSYNC_HINT})
-    rl.InitWindow(1280, 720, "")
-    rl.SetTargetFPS(240)
+    context.logger = log.create_console_logger()
+
+    game := game_init()
+    defer game_deinit(&game)
 
     for !rl.WindowShouldClose() {
-        rl.BeginDrawing()
-            rl.ClearBackground(rl.WHITE)
-        rl.EndDrawing()
+        game_update(&game)
+        game_draw(&game)
     }
 }
