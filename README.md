@@ -1,6 +1,6 @@
-# Odin Games Programming Template
+# Odin game programming template
 
-This is my personal template for Odin games. Feel free to use this for any project you'd like.
+This is my personal template for programming games in Odin using Raylib. Feel free to use this for any project you'd like.
 If you'd like to request a feature or fix an issue, create a PR and I'll review & push it. :)
 
 To run, execute the command:
