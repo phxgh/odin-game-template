@@ -1,0 +1,3 @@
+- add atlas building
+    - all drawing can be done with one simple draw call
+- add hot reloading
