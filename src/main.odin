@@ -6,7 +6,7 @@ import "core:log"
 main :: proc() {
     context.logger = log.create_console_logger()
 
-    game := game_init()
+    game := game_init("Odin Game Programming Template", 1280, 720)
     defer game_deinit(&game)
 
     for !rl.WindowShouldClose() {

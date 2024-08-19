@@ -2,12 +2,14 @@ package game
 
 import rl "vendor:raylib"
 
+GAME_BG_DRAW_COLOR :: rl.Color{183, 184, 196, 255}
+
 Game :: struct {
     entities: [dynamic]Entity,
 }
 
-game_init :: proc() -> Game {
-    game_init_window()
+game_init :: proc(title: cstring, width, height: i32) -> Game {
+game_init_window(title, width, height)
 
     g := Game{
         entities = make([dynamic]Entity),
@@ -17,9 +19,9 @@ game_init :: proc() -> Game {
     return g
 }
 
-game_init_window :: proc() {
+game_init_window :: proc(title: cstring, width, height: i32) {
     rl.SetConfigFlags({.VSYNC_HINT})
-    rl.InitWindow(1280, 720, "")
+    rl.InitWindow(width, height, title)
 }
 
 game_deinit :: proc(g: ^Game) {
