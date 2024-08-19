@@ -9,7 +9,7 @@ Game :: struct {
 }
 
 game_init :: proc(title: cstring, width, height: i32) -> Game {
-game_init_window(title, width, height)
+    game_init_window(title, width, height)
 
     g := Game{
         entities = make([dynamic]Entity),
@@ -25,9 +25,12 @@ game_init_window :: proc(title: cstring, width, height: i32) {
 }
 
 game_deinit :: proc(g: ^Game) {
-    game_deinit_window()
-
+    for e in g.entities {
+        entity_deinit(e)
+    }
     delete(g.entities)
+
+    game_deinit_window()
 }
 
 game_deinit_window :: proc() {
@@ -42,7 +45,7 @@ game_update :: proc(g: ^Game) {
 
 game_draw :: proc(g: ^Game) {
     rl.BeginDrawing()
-        rl.ClearBackground(rl.WHITE)
+        rl.ClearBackground(GAME_BG_DRAW_COLOR)
         for e in g.entities {
             entity_draw(e)
         }

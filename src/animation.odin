@@ -14,7 +14,7 @@ Animation :: struct {
 animation_init :: proc(texture: Texture, frames: []i32, frame_length: f32, total_frames: i32) -> Animation {
     a := Animation{
         texture = texture,
-        cur_index = -1,
+        cur_index = 0,
         total_frames = total_frames,
         frame_timer = frame_length
     }

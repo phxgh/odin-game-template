@@ -3,13 +3,14 @@ package game
 Entity :: struct {
     animation: Animation,
     pos, vel: Vec2,
-    entity_type: Entity_Type,
+    type: Entity_Type,
 }
 
-entity_init :: proc(animation: Animation, x, y: f32) -> Entity {
+entity_init :: proc(animation: Animation, x, y: f32, type: Entity_Type) -> Entity {
     return Entity{
         animation = animation,
         pos = { x, y },
+        type = type,
     }
 }
 
@@ -22,7 +23,7 @@ entity_draw :: proc(e: Entity) {
 }
 
 entity_update :: proc(e: ^Entity) {
-    switch _ in e.entity_type {
+    switch _ in e.type {
         case Player:
             // Update player
     }
@@ -31,7 +32,7 @@ entity_update :: proc(e: ^Entity) {
 
 /* NOTE: you can essentially use this as an enum that can hold
 data specialized to each entity. You can also use an empty struct
-and just name it if you don't need specialized data for the entity*/
+and just name it if you don't need specialized data for the entity */
 Entity_Type :: union {
     Player,
 }
