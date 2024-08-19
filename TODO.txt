@@ -1,3 +1,4 @@
-- add atlas building
-    - all drawing can be done with one simple draw call
-- add hot reloading
+- Add atlas building
+    - All drawing can be done with one simple draw call
+- Add hot reloading
+- Add Box2D as a physics engine (for platforming games & such)
