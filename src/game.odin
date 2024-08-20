@@ -14,7 +14,6 @@ game_init :: proc(title: cstring, width, height: i32) -> Game {
     g := Game{
         entities = make([dynamic]Entity),
     }
-    // initialize game entity list here
 
     return g
 }

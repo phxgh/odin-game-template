@@ -38,5 +38,5 @@ Entity_Type :: union {
 }
 
 Player :: struct {
-
+    
 }
