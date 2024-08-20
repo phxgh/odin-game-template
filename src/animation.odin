@@ -55,6 +55,10 @@ animation_draw :: proc(a: Animation, pos: Vec2) {
 }
 
 animation_switch :: proc(a: ^Animation, frames: []i32, frame_length: f32) {
+    if (array_equals(a.frames, frames)) && (frame_length == a.frame_length) {
+        return
+    }
+
     if a.frames != nil {
         delete(a.frames)
     }

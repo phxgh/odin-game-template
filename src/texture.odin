@@ -41,7 +41,7 @@ texture_draw_rect :: proc(t: Texture, rect: Rect, pos: Vec2, frame_offset: i32 =
         width = size.x,
         height = size.y * f32(frame_offset),
     }
-    rl.DrawTexturePro(t.texture, rect, dest, VEC2_ZERO, t.rotation, t.tint)
+    rl.DrawTexturePro(t.texture, rect_flip(rect) if t.flipped else rect, dest, VEC2_ZERO, t.rotation, t.tint)
 }
 
 texture_size :: proc(t: Texture) -> Vec2 {
