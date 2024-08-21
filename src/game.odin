@@ -2,7 +2,7 @@ package game
 
 import rl "vendor:raylib"
 
-GAME_BG_DRAW_COLOR :: rl.Color{183, 184, 196, 255}
+GAME_BG_DRAW_COLOR :: rl.WHITE
 
 Game :: struct {
     entities: [dynamic]Entity,
