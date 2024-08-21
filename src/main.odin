@@ -3,12 +3,16 @@ package game
 import rl "vendor:raylib"
 import "core:log"
 
+GAME_TITLE :: "Odin Game Template"
+GAME_WIDTH :: 1280
+GAME_HEIGHT :: 720
+
 GAME_BG_DRAW_COLOR :: rl.WHITE
 
 main :: proc() {
     context.logger = log.create_console_logger()
 
-    game := game_init("Odin Games Programming Template", 1280, 720)
+    game := game_init(GAME_TITLE, GAME_WIDTH, GAME_HEIGHT)
     defer game_deinit(&game)
 
     for !rl.WindowShouldClose() {
