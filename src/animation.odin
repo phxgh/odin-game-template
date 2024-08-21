@@ -20,16 +20,23 @@ animation_init :: proc(label: string, texture: Texture, frames: []i32, frame_len
         total_frames = total_frames,
         frame_timer = frame_length
     }
+    
+    a.frames = make([]i32, len(frames))
+    for _, i in a.frames {
+        a.frames[i] = frames[i]
+    }
+
     return a
 }
 
 animation_deinit :: proc(a: Animation) {
-    delete(a.label)
     delete(a.frames)
     texture_deinit(a.texture)
 }
 
 animation_update :: proc(a: ^Animation) {
+    log.infof("Animation %v updating", a.label)
+
     if len(a.frames) == 0 {
         log.error("Animation given 0 frames")
         return
