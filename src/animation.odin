@@ -4,6 +4,7 @@ import rl "vendor:raylib"
 import "core:log"
 
 Animation :: struct {
+    label: string,
     texture: Texture,
     frames: []i32,
     cur_index, cur_frame: i32,
@@ -11,18 +12,19 @@ Animation :: struct {
     frame_length, frame_timer: f32,
 }
 
-animation_init :: proc(texture: Texture, frames: []i32, frame_length: f32, total_frames: i32) -> Animation {
+animation_init :: proc(label: string, texture: Texture, frames: []i32, frame_length: f32, total_frames: i32) -> Animation {
     a := Animation{
+        label = label,
         texture = texture,
         cur_index = 0,
         total_frames = total_frames,
         frame_timer = frame_length
     }
-    animation_switch(&a, frames, frame_length)
     return a
 }
 
 animation_deinit :: proc(a: Animation) {
+    delete(a.label)
     delete(a.frames)
     texture_deinit(a.texture)
 }
@@ -52,24 +54,6 @@ animation_update :: proc(a: ^Animation) {
 
 animation_draw :: proc(a: Animation, pos: Vec2) {
     texture_draw_rect(a.texture, animation_rect(a), pos, a.total_frames)
-}
-
-animation_switch :: proc(a: ^Animation, frames: []i32, frame_length: f32) {
-    if (array_equals(a.frames, frames)) && (frame_length == a.frame_length) {
-        return
-    }
-
-    if a.frames != nil {
-        delete(a.frames)
-    }
-    a.frames = make([]i32, len(frames))
-    for _, i in a.frames {
-        a.frames[i] = frames[i]
-    }
-
-    a.frame_length = frame_length
-    a.frame_timer = a.frame_length
-    a.cur_index = 0
 }
 
 animation_rect :: proc(a: Animation) -> Rect {

@@ -24,8 +24,8 @@ game_init_window :: proc(title: cstring, width, height: i32) {
 }
 
 game_deinit :: proc(g: ^Game) {
-    for e in g.entities {
-        entity_deinit(e)
+    for _, i in g.entities {
+        entity_deinit(&g.entities[i])
     }
     delete(g.entities)
 
