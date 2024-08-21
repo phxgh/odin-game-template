@@ -18,6 +18,7 @@ animation_init :: proc(label: string, texture: Texture, frames: []i32, frame_len
         texture = texture,
         cur_index = 0,
         total_frames = total_frames,
+        frame_length = frame_length,
         frame_timer = frame_length
     }
     
@@ -35,8 +36,6 @@ animation_deinit :: proc(a: Animation) {
 }
 
 animation_update :: proc(a: ^Animation) {
-    log.infof("Animation %v updating", a.label)
-
     if len(a.frames) == 0 {
         log.error("Animation given 0 frames")
         return

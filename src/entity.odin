@@ -1,5 +1,7 @@
 package game
 
+PLAYER_SPEED :: 256
+
 import rl "vendor:raylib"
 import "core:log"
 
@@ -29,9 +31,6 @@ entity_deinit :: proc(e: ^Entity) {
 entity_update :: proc(e: ^Entity) {
     switch _ in e.type {
         case Player:
-            if rl.IsKeyPressed(.SPACE) {
-                entity_switch_animation(e, "walk")
-            }
     }
     animation_update(&e.anims[e.cur_anim])
     e.pos += e.vel * rl.GetFrameTime()

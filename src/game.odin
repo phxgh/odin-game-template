@@ -16,15 +16,6 @@ game_init :: proc(title: cstring, width, height: i32) -> Game {
         entities = make([dynamic]Entity),
     }
 
-    player_texture := texture_init("assets/player.png")
-    player := entity_init(f32(width) / 2, f32(height) / 2, Player{})
-    entity_add_animation(&player, animation_init("idle", player_texture, { 0 }, 0, 4))
-    entity_add_animation(&player, animation_init("walk", player_texture, { 0, 1 }, 0.175, 4))
-    entity_add_animation(&player, animation_init("jump", player_texture, { 2 }, 0, 4))
-    entity_add_animation(&player, animation_init("fall", player_texture, { 3 }, 0, 4))
-    entity_switch_animation(&player, "idle")
-    append(&g.entities, player)
-
     return g
 }
 
