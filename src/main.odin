@@ -3,7 +3,7 @@ package game
 import rl "vendor:raylib"
 import "core:log"
 
-TITLE :: "Odin Game Template"
+TITLE :: ""
 WIDTH :: 1280
 HEIGHT :: 720
 
